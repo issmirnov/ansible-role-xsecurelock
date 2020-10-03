@@ -44,10 +44,6 @@
   register: st
   when: custom_pam_auth == ""
 
-# - debug: debut st
-#     var:
-#       - st.stat
-
 - fail:
     msg: "/etc/pam.d/common-auth does not exist, and no 'custom_pam_auth' set"
   when: custom_pam_auth == "" and not st.stat.exists
@@ -79,5 +75,4 @@
 - fail:
     msg: "'xsecurelock --version command failed' : {{ xout.stdout }}"
   when: xout.stdout.find('X11 screen lock utility designed for security') == -1
-  changed_when: False # idempotency
   changed_when: False # idempotency

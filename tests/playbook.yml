@@ -29,7 +29,5 @@
           - man
           - git
         state: latest
-
   roles:
     - ansible-role-xsecurelock
-
