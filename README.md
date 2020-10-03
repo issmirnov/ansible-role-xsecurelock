@@ -37,7 +37,7 @@ MIT
 
 ## Author Information
 
-Name: Ivan Smirnov
-Email: isgsmirnov@gmail.com
-Blog: https://blog.ivansmirnov.name/
-Site: https://ivansmirnov.name/
+- Name: Ivan Smirnov
+- Email: isgsmirnov@gmail.com
+- Blog: https://blog.ivansmirnov.name/
+- Site: https://ivansmirnov.name/
