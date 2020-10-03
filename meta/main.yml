@@ -20,8 +20,6 @@ galaxy_info:
   platforms:
   - name: Debian
     version:
-    - 8
-    - 9
     - 10
   - name: Ubuntu
     versions:
