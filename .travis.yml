@@ -1,29 +1,30 @@
 ---
-language: python
-python: "2.7"
-
-# Use the new container infrastructure
+language: go
+install: true # https://arslan.io/2018/08/26/using-go-modules-with-vendor-support-on-travis-ci/
 sudo: false
 
-# Install ansible
-addons:
-  apt:
-    packages:
-    - python-pip
+go:
+  - 1.15
 
-install:
-  # Install ansible
-  - pip install ansible
+services: docker
 
-  # Check ansible version
-  - ansible --version
+env:
+  - distro: ubuntu1604
+  - distro: ubuntu1804
+  - distro: ubuntu2004
+  - distro: debian9
+  - distro: debian10
 
-  # Create ansible.cfg with correct roles_path
-  - printf '[defaults]\nroles_path=../' >ansible.cfg
+before_install:
+  - sudo apt update
+  - sudo apt install software-properties-common
+  - sudo apt-add-repository --yes ppa:ansible/ansible
+  - sudo apt update
+  - sudo apt install ansible
+  - GO111MODULE=on go get -v github.com/fubarhouse/ansible-role-tester
 
 script:
-  # Basic role syntax check
-  - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
+  - ansible-role-tester full --distribution ${distro}
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
