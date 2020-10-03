@@ -1,0 +1,35 @@
+---
+- hosts: localhost
+  remote_user: root
+  vars:
+  pre_tasks:
+    # Required, since ubuntu image comes without caches.
+    - name: update apt caches
+      apt:
+        update_cache: yes
+      when: ansible_os_family == 'Debian'
+      changed_when: false # for idempotency
+
+    # fix apt state, solves very odd bugs.
+    - name: apt --purge remove
+      raw: apt --purge remove
+      changed_when: false # for idempotency
+    - name: apt autoclean
+      raw: apt autoclean
+      changed_when: false # for idempotency
+    - name: apt -f install
+      raw: apt -f install
+      changed_when: false # for idempotency
+    - name: dpkg --configure -a
+      raw: dpkg --configure -a
+      changed_when: false # for idempotency
+    - name: install man and git
+      apt:
+        pkg:
+          - man
+          - git
+        state: latest
+
+  roles:
+    - ansible-role-xsecurelock
+

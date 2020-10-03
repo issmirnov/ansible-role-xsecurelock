@@ -1,38 +1,38 @@
-Role Name
+xsecurelock
 =========
-
-A brief description of the role goes here.
+Installs https://github.com/google/xsecurelock on a Debian system.
 
 Requirements
 ------------
-
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+System with `git` installed, running a graphical user interface.
 
 Role Variables
 --------------
+- `custom_pam_auth: ""` :  Set this to an auth provder in /etc/pam.d, or leave blank for 'common-auth' default.
+- `xsecurelock_src_dir: /tmp/xsecurelock` :  Location of temporary work dir for sources.
+- `enable_optional_modules: no` : Enable additional modules in xsecurelock (saver_mplayer, saver_mpv, saver_xscreensaver)
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
 
 Dependencies
 ------------
-
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+None.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
+    - hosts: localhost
       roles:
-         - { role: username.rolename, x: 42 }
+         - issmirnov.xsecurelock
+      become: yes
 
 License
 -------
 
-BSD
+MIT
 
 Author Information
 ------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Name: Ivan Smirnov
+Email: isgsmirnov@gmail.com
+Blog: https://blog.ivansmirnov.name/
+Site: https://ivansmirnov.name/

@@ -1,2 +1,7 @@
 ---
-# tasks file for ansible-role-xsecurelock
+- include_tasks: debian.yml
+  when: ansible_os_family == 'Debian'
+
+- fail:
+    msg: "Non debian systems are not supported in this role"
+  when: ansible_os_family != 'Debian'

@@ -1,2 +1,9 @@
 ---
-# defaults file for ansible-role-xsecurelock
+# Set this to an auth provder in /etc/pam.d, or leave blank for 'common-auth' default.
+custom_pam_auth: ""
+
+# Location of temporary work dir for sources.
+xsecurelock_src_dir: /tmp/xsecurelock
+
+# Enable additional modules in xsecurelock (saver_mplayer, saver_mpv, saver_xscreensaver)
+enable_optional_modules: no
