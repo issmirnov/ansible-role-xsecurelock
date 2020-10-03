@@ -1,4 +1,8 @@
-xsecurelock
+Ansible Role: xsecurelock
+
+[![Build Status](https://img.shields.io/travis/issmirnov/ansible-role-xsecurelock/master.svg?style=for-the-badge)](https://travis-ci.org/issmirnov/ansible-xsecurelock)
+![stability-stable](https://img.shields.io/badge/stability-stable-green.svg?style=for-the-badge)
+
 =========
 Installs https://github.com/google/xsecurelock on a Debian system.
 
