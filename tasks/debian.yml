@@ -25,12 +25,13 @@
       - mplayer
       - mpv
       - xscreensaver
-  when: enable_optional_modules == True
+  when: enable_optional_modules
 
 - name: get git sources
   git:
     repo: https://github.com/google/xsecurelock.git
     dest: "{{ xsecurelock_src_dir }}"
+    version: master
 
 - name: run autogen
   shell: sh autogen.sh
@@ -42,11 +43,11 @@
   stat:
     path: /etc/pam.d/common-auth
   register: st
-  when: custom_pam_auth == ""
+  when: not custom_pam_auth
 
 - fail:
     msg: "/etc/pam.d/common-auth does not exist, and no 'custom_pam_auth' set"
-  when: custom_pam_auth == "" and not st.stat.exists
+  when: not custom_pam_auth and not st.stat.exists
 
 - name: run configure
   shell: ./configure --with-pam-service-name=common-auth
@@ -72,7 +73,8 @@
   register: xout
   changed_when: False # idempotency
 
-- fail:
+- name: flag issue if xsecurelock command failed
+  fail:
     msg: "'xsecurelock --version command failed' : {{ xout.stdout }}"
   when: xout.stdout.find('X11 screen lock utility designed for security') == -1
   changed_when: False # idempotency
