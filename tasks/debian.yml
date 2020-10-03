@@ -38,6 +38,8 @@
   args:
     chdir: "{{ xsecurelock_src_dir }}"
     creates: Makefile.in
+  tags:
+    - skip_ansible_lint
 
 - name: sanity check that 'common-auth' is present when 'custom_pam_auth' unset
   stat:
@@ -45,7 +47,8 @@
   register: st
   when: not custom_pam_auth
 
-- fail:
+- name: Flag issue when PAM modules missing
+  fail:
     msg: "/etc/pam.d/common-auth does not exist, and no 'custom_pam_auth' set"
   when: not custom_pam_auth and not st.stat.exists
 
@@ -54,12 +57,16 @@
   args:
     chdir: "{{ xsecurelock_src_dir }}"
     creates: Makefile
+  tags:
+    - skip_ansible_lint
 
 - name: make
   shell: make
   args:
     chdir: "{{ xsecurelock_src_dir }}"
     creates: xsecurelock
+  tags:
+    - skip_ansible_lint
 
 - name: sudo make install
   shell: make install
@@ -67,11 +74,15 @@
     chdir: "{{ xsecurelock_src_dir }}"
     creates: /usr/local/bin/xsecurelock
   become: yes
+  tags:
+    - skip_ansible_lint
 
 - name: validate that command works
   shell: /usr/local/bin/xsecurelock --version
   register: xout
   changed_when: False # idempotency
+  tags:
+    - skip_ansible_lint
 
 - name: flag issue if xsecurelock command failed
   fail:
